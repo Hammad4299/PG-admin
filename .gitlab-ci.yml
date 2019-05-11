@@ -7,7 +7,7 @@ lint:
     - |
         helm lint ./
 
-pages:
+helmpush:
   image:
     name: linkyard/docker-helm
     entrypoint: ["/bin/sh", "-c"]
