@@ -1,0 +1,20 @@
+lint:
+  image:
+    name: linkyard/docker-helm
+    entrypoint: ["/bin/sh", "-c"]
+  stage: test
+  script:
+    - |
+        helm lint ./
+
+pages:
+  image:
+    name: linkyard/docker-helm
+    entrypoint: ["/bin/sh", "-c"]
+  stage: deploy
+  script:
+    - helm init --client-only
+    - helm plugin install https://github.com/chartmuseum/helm-push
+    - helm repo add teraception $TERACEPTION_CHART_MUSEUM
+    - |
+        helm push ./ teraception
